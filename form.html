@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isi Data Anda</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="form-container">
+        <h1>Masukkan Data Diri Anda</h1>
+        <form id="userForm">
+            <label for="mbti">Pilih Tipe MBTI Anda:</label>
+            <select id="mbti" required>
+                <option value="">Pilih Tipe MBTI</option>
+                <!-- MBTI Options -->
+                <option value="intj">INTJ</option>
+                <option value="intp">INTP</option>
+                <option value="entj">ENTJ</option>
+                <option value="entp">ENTP</option>
+                <option value="infj">INFJ</option>
+                <option value="infp">INFP</option>
+                <option value="enfj">ENFJ</option>
+                <option value="enfp">ENFP</option>
+                <option value="istj">ISTJ</option>
+                <option value="estj">ESTJ</option>
+                <option value="estp">ESTP</option>
+                <option value="isfj">ISFJ</option>
+                <option value="isfp">ISFP</option>
+                <option value="esfj">ESFJ</option>
+                <option value="esfp">ESFP</option>
+            </select>
+
+            <label for="age">Umur:</label>
+            <input type="number" id="age" required>
+
+            <label for="mood">Pilih Mood Anda:</label>
+            <select id="mood" required>
+                <option value="">Pilih Mood</option>
+                <option value="happy">Bahagia</option>
+                <option value="sad">Sedih</option>
+                <option value="excited">Terpacu</option>
+                <option value="calm">Tenang</option>
+            </select>
+
+            <label for="genre">Genre Film Favorit:</label>
+            <input type="text" id="genre" placeholder="Misal: Aksi, Drama, Komedi" required>
+
+            <button type="submit">Dapatkan Rekomendasi</button>
+        </form>
+        <div id="recommendation"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
