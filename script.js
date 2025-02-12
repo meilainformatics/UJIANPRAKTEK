@@ -1,37 +1,25 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rekomendasi Film</title>
-</head>
-<body>
+document.getElementById('userForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Mencegah form untuk reload halaman
 
-    <form id="userForm">
-        <label for="mbti">MBTI:</label>
-        <input type="text" id="mbti" required>
-        
-        <label for="mood">Mood:</label>
-        <input type="text" id="mood" required>
+    // Mengambil nilai dari form
+    const mbti = document.getElementById('mbti').value;
+    const age = parseInt(document.getElementById('age').value);
+    const mood = document.getElementById('mood').value;
+    const genre = document.getElementById('genre').value.toLowerCase(); // Konversi genre ke lowercase
 
-        <label for="age">Umur:</label>
-        <input type="number" id="age" required>
+    // Menentukan kategori umur
+    let ageCategory = '';
+    if (age < 13) {
+        ageCategory = 'Anak-anak';
+    } else if (age >= 13 && age <= 17) {
+        ageCategory = 'Remaja';
+    } else if (age >= 18) {
+        ageCategory = 'Dewasa';
+    }
 
-        <button type="submit">Dapatkan Rekomendasi</button>
-    </form>
-
-    <div id="recommendation"></div>
-
-    <script>
-        document.getElementById('userForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            let mbti = document.getElementById('mbti').value.toLowerCase();
-            let mood = document.getElementById('mood').value.toLowerCase();
-            let age = parseInt(document.getElementById('age').value);
-
-            let recommendation = getMovieRecommendation(mbti, mood, age);
-            document.getElementById('recommendation').innerHTML = recommendation;
+    // Fungsi untuk mendapatkan rekomendasi film
+    const recommendation = getMovieRecommendation(mbti, mood, ageCategory, genre);
+    document.getElementById('recommendation').innerHTML = recommendation; // Menampilkan hasil rekomendasi
         });
 
 function getMovieRecommendation(mbti, mood) {
@@ -381,28 +369,25 @@ function getMovieRecommendation(mbti, mood) {
     ]
             };
 
-            if (!recommendations[mbti] || !recommendations[mbti][mood]) {
-                return "<p>Maaf, tidak ada rekomendasi yang tersedia.</p>";
-            }
+    if (!recommendations[mbti] || !recommendations[mbti][mood]) {
+        return "<p>Maaf, tidak ada rekomendasi yang tersedia untuk tipe MBTI dan mood ini.</p>";
+    }
 
-            // Filter film berdasarkan usia
-            let movieList = recommendations[mbti][mood].filter(movie => {
-                if (age < 13) return movie.age === "anak-anak";
-                if (age >= 13 && age < 18) return movie.age === "remaja" || movie.age === "anak-anak";
-                return true; // Semua umur bisa nonton film "dewasa"
-            });
+    // Filter film berdasarkan kategori umur
+    let movieList = recommendations[mbti][mood].filter(movie => movie.age === ageCategory);
 
-            if (movieList.length === 0) return "<p>Maaf, tidak ada rekomendasi yang cocok untuk umur kamu.</p>";
+    // Filter berdasarkan genre
+    movieList = movieList.filter(movie => movie.genre.includes(genre));
 
-            // Menampilkan film dalam bentuk gambar dan nama
-            return movieList.map(movie => `
-                <div>
-                    <img src="${movie.image}" alt="${movie.name}" style="width:150px;">
-                    <p>${movie.name}</p>
-                </div>
-            `).join("");
-        }
-    </script>
+    if (movieList.length === 0) {
+        return "<p>Maaf, tidak ada rekomendasi yang cocok untuk kategori umur dan genre kamu.</p>";
+    }
 
-</body>
-</html>
+    // Menampilkan film dalam bentuk gambar dan nama
+    return movieList.map(movie => `
+        <div>
+            <img src="${movie.image}" alt="${movie.name}" style="width:150px;">
+            <p>${movie.name}</p>
+        </div>
+    `).join("");
+}
