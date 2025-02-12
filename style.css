@@ -1,112 +1,113 @@
-/* Reset default styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommender</title>
+    <style>
+        /* Reset default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f4f8;
-    color: #333;
-}
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom right, #e0f2f7, #bbdefb); /* Gradient background */
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensure full viewport height */
+        }
 
-.welcome-container, .form-container {
-    text-align: center;
-    padding: 30px;
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
+        .container {
+            flex: 1; /* Allow container to grow and take available space */
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            padding: 30px;
+        }
 
-h1 {
-    font-size: 2.5em;
-    color: #2c3e50;
-    margin-bottom: 20px;
-}
+        .welcome-container, .form-container {
+            text-align: center;
+            padding: 40px; /* Increased padding */
+            max-width: 600px; /* Slightly smaller max-width */
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+            border-radius: 15px; /* More rounded corners */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* More prominent shadow */
+            backdrop-filter: blur(5px); /* Add a subtle blur */
+        }
 
-p {
-    font-size: 1.2em;
-    color: #7f8c8d;
-    margin-bottom: 30px;
-}
+        h1 {
+            font-size: 2.8em; /* Slightly larger heading */
+            color: #2c3e50;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Add text shadow */
+        }
 
-.start-button {
-    text-decoration: none;
-    padding: 15px 30px;
-    background-color: #3498db;
-    color: white;
-    font-size: 1.2em;
-    border-radius: 8px;
-    transition: background-color 0.3s ease;
-}
+        p {
+            font-size: 1.3em; /* Slightly larger paragraph */
+            color: #555;
+            margin-bottom: 40px;
+        }
 
-.start-button:hover {
-    background-color: #2980b9;
-}
+        .start-button {
+            display: inline-block; /* Make button behave like inline element */
+            text-decoration: none;
+            padding: 18px 35px; /* Increased padding */
+            background-color: #3498db;
+            color: white;
+            font-size: 1.3em; /* Slightly larger font */
+            border-radius: 10px; /* More rounded corners */
+            transition: background-color 0.3s ease, transform 0.2s ease; /* Add transform transition */
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Add button shadow */
+        }
 
-form {
-    margin-top: 30px;
-    max-width: 500px;
-    margin: 0 auto;
-}
+        .start-button:hover {
+            background-color: #2980b9;
+            transform: scale(1.05); /* Scale up on hover */
+            box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.25); /* More prominent shadow on hover */
+        }
 
-label {
-    display: block;
-    margin: 15px 0 5px;
-    font-size: 1.1em;
-    color: #34495e;
-}
+        /* ... (rest of your CSS) */
 
-select, input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 1em;
-}
+        .character { /* Style for the character image */
+            position: absolute;
+            bottom: 20px; /* Position at the bottom */
+            right: 20px; /* Position at the right */
+            max-width: 150px; /* Adjust size as needed */
+            animation: float 6s ease-in-out infinite; /* Add floating animation */
+        }
 
-button {
-    width: 100%;
-    padding: 12px;
-    background-color: #2ecc71;
-    color: white;
-    font-size: 1.2em;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
+        @keyframes float { /* Define the floating animation */
+            0% { transform: translateY(0); }
+            25% { transform: translateY(-10px); }
+            50% { transform: translateY(0); }
+            75% { transform: translateY(10px); }
+            100% { transform: translateY(0); }
+        }
 
-button:hover {
-    background-color: #27ae60;
-}
+        /* ... (rest of your CSS) */
 
-#recommendation {
-    margin-top: 30px;
-    font-size: 1.2em;
-    color: #333;
-    background-color: #ecf0f1;
-    padding: 20px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+        @media (max-width: 600px) {
+           .character {
+                display: none; /* Hide character on smaller screens */
+            }
+          /* ... your existing media query styles ... */
+        }
 
-/* Responsiveness */
-@media (max-width: 600px) {
-    .welcome-container, .form-container {
-        padding: 20px;
-    }
+    </style>
+</head>
+<body>
 
-    h1 {
-        font-size: 2em;
-    }
+    <div class="container">
+        <div class="welcome-container">
+            <h1>Welcome to the Movie Recommender!</h1>
+            <p>Find the perfect movie for your mood.</p>
+            <a href="#" class="start-button">Get Started</a>
+        </div>
+        <img class="character" src="your_character_image.png" alt="Character">  </div>
 
-    .start-button {
-        font-size: 1.1em;
-    }
-}
+</body>
+</html>
