@@ -13,8 +13,8 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to bottom right, #f5f7fa, #c3cfe2);
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom right, #f8c8d5, #ffb6c1); /* Soft pink gradient */
             color: #333;
             display: flex;
             justify-content: center;
@@ -25,38 +25,50 @@
 
         .container {
             background: white;
-            padding: 30px;
+            padding: 40px;
             border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
             max-width: 400px;
             width: 90%;
+            transition: 0.3s;
+        }
+
+        .container:hover {
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
         }
 
         h1 {
-            font-size: 1.8em;
-            color: #2c3e50;
-            margin-bottom: 15px;
+            font-size: 2em;
+            color: #e91e63; /* Pink color for heading */
+            margin-bottom: 20px;
+            font-weight: 700;
         }
 
         p {
-            font-size: 1em;
+            font-size: 1.2em;
             color: #555;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         .start-button {
             display: inline-block;
-            padding: 12px 25px;
-            background: #3498db;
+            padding: 15px 30px;
+            background: #e91e63; /* Pink button */
             color: white;
-            font-size: 1em;
+            font-size: 1.2em;
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 50px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             transition: 0.3s;
         }
 
         .start-button:hover {
-            background: #2980b9;
+            background: #d81b60; /* Darker pink on hover */
+            transform: scale(1.1);
+        }
+
+        .start-button:active {
+            background: #c2185b; /* Even darker pink on click */
             transform: scale(1.05);
         }
     </style>
