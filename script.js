@@ -1,6 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const form = document.getElementById("userForm");
-    const recommendationDiv = document.getElementById("recommendation");
+    document.getElementById("userForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const mbti = document.getElementById("mbti").value.toLowerCase();
+        const age_rating = parseInt(document.getElementById("age_rating").value);
+        const mood = document.getElementById("mood").value.toLowerCase();
+        const genre = document.getElementById("genre").value.toLowerCase();
+        const recommendationDiv = document.getElementById("recommendation");
 
     // Database rekomendasi film berdasarkan MBTI, umur, mood, dan genre
     const movieRecommendations = {
@@ -1572,25 +1578,21 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // Validasi input
-        if (!mbti || !age_rating || !mood || !genre) {
-            recommendationDiv.innerHTML = "<p style='color:red;'>Silakan lengkapi semua data.</p>";
-            return;
-        }
+        if (movieRecommendations[mbti] && movieRecommendations[mbti][mood] && movieRecommendations[mbti][mood][genre]) {
+            const movieData = movieRecommendations[mbti][mood][genre];
 
-        // Cek rekomendasi berdasarkan MBTI
-        let movieData = movieRecommendations[mbti];
-
-        if (movieData && movieData.mood === mood && movieData.genre === genre) {
             recommendationDiv.innerHTML = `
                 <h2>Rekomendasi Film untuk Anda</h2>
                 <p><strong>Film:</strong> ${movieData.title}</p>
-                <p><strong>Genre:</strong> ${movieData.genre.toUpperCase()}</p>
+                <p><strong>Genre:</strong> ${genre.toUpperCase()}</p>
                 <p><strong>MBTI Anda:</strong> ${mbti.toUpperCase()}</p>
-                <p><strong>Umur Anda:</strong> ${age_rating} (${ageCategory.toUpperCase()})</p>
-                <img src="images/${movieData.img}" alt="${movieData.title}" style="width: 250px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);">
+                <p><strong>Mood Anda:</strong> ${mood.toUpperCase()}</p>
+                <img src="https://image.tmdb.org/t/p/w500/${movieData.img}" 
+                     alt="${movieData.title}" 
+                     style="width: 250px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);">
             `;
         } else {
-            recommendationDiv.innerHTML = "<p>Maaf, tidak ada rekomendasi film yang cocok dengan pilihan Anda.</p>";
+            recommendationDiv.innerHTML = "<p style='color:red;'>Maaf, tidak ada rekomendasi yang cocok dengan pilihan Anda.</p>";
         }
     });
 });
