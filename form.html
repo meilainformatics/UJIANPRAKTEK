@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Isi Data Anda</title>
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script> <!-- Hubungkan script -->
 </head>
 <body>
     <div class="form-container">
@@ -13,7 +14,6 @@
             <label for="mbti">Pilih Tipe MBTI Anda:</label>
             <select id="mbti" required>
                 <option value="">Pilih Tipe MBTI</option>
-                <!-- MBTI Options -->
                 <option value="intj">INTJ</option>
                 <option value="intp">INTP</option>
                 <option value="entj">ENTJ</option>
@@ -31,8 +31,8 @@
                 <option value="esfp">ESFP</option>
             </select>
 
-            <label for="age">Umur:</label>
-            <input type="number" id="age" min="1" required>
+            <label for="age_rating">Umur:</label>
+            <input type="number" id="age_rating" required>
 
             <label for="mood">Pilih Mood Anda:</label>
             <select id="mood" required>
@@ -48,9 +48,8 @@
 
             <button type="submit">Dapatkan Rekomendasi</button>
         </form>
+
         <div id="recommendation"></div>
     </div>
-
-    <script src="script.js"></script>
 </body>
 </html>
