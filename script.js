@@ -1562,17 +1562,17 @@ document.addEventListener("DOMContentLoaded", function () {
         const genre = document.getElementById("genre").value.toLowerCase();
 
         // Tentukan kategori umur
-        let ageCategory = "";
+        let age_ratingCategory = "";
         if (age_rating <= "SU") {
-            ageCategory = "anak";
+            age_ratingCategory = "anak";
         } else if (age_rating >= 13 && age <= 17 , "SU") {
-            ageCategory = "remaja";
+            age_ratingCategory = "remaja";
         } else if (age_rating >= 17=>100)
-            ageCategory = "dewasa";
+            age_ratingCategory = "dewasa";
         }
 
         // Validasi input
-        if (!mbti || !age || !mood || !genre) {
+        if (!mbti || !age_rating || !mood || !genre) {
             recommendationDiv.innerHTML = "<p style='color:red;'>Silakan lengkapi semua data.</p>";
             return;
         }
@@ -1586,7 +1586,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <p><strong>Film:</strong> ${movieData.title}</p>
                 <p><strong>Genre:</strong> ${movieData.genre.toUpperCase()}</p>
                 <p><strong>MBTI Anda:</strong> ${mbti.toUpperCase()}</p>
-                <p><strong>Umur Anda:</strong> ${age} (${ageCategory.toUpperCase()})</p>
+                <p><strong>Umur Anda:</strong> ${age_rating} (${ageCategory.toUpperCase()})</p>
                 <img src="images/${movieData.img}" alt="${movieData.title}" style="width: 250px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);">
             `;
         } else {
