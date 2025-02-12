@@ -1,12 +1,38 @@
-document.getElementById('userForm').addEventListener('submit', function(event) {
-    event.preventDefault();
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rekomendasi Film</title>
+</head>
+<body>
 
-    let mbti = document.getElementById('mbti').value.toLowerCase();
-    let mood = document.getElementById('mood').value.toLowerCase();
+    <form id="userForm">
+        <label for="mbti">MBTI:</label>
+        <input type="text" id="mbti" required>
+        
+        <label for="mood">Mood:</label>
+        <input type="text" id="mood" required>
 
-    let recommendation = getMovieRecommendation(mbti, mood);
-    document.getElementById('recommendation').innerHTML = recommendation;
-});
+        <label for="age">Umur:</label>
+        <input type="number" id="age" required>
+
+        <button type="submit">Dapatkan Rekomendasi</button>
+    </form>
+
+    <div id="recommendation"></div>
+
+    <script>
+        document.getElementById('userForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            let mbti = document.getElementById('mbti').value.toLowerCase();
+            let mood = document.getElementById('mood').value.toLowerCase();
+            let age = parseInt(document.getElementById('age').value);
+
+            let recommendation = getMovieRecommendation(mbti, mood, age);
+            document.getElementById('recommendation').innerHTML = recommendation;
+        });
 
 function getMovieRecommendation(mbti, mood) {
     const recommendations = {
@@ -353,9 +379,30 @@ function getMovieRecommendation(mbti, mood) {
       { "name": "The Princess Diaries", "image": "https://example.com/princess-diaries.jpg", "age": "remaja" },
       { "name": "Frozen", "image": "https://example.com/frozen.jpg", "age": "anak-anak" }
     ]
-    };
+            };
 
-    return recommendations[mbti] && recommendations[mbti][mood] ? recommendations[mbti][mood].map(movie => 
-        `<div><img src="${movie.image}" style="width: 150px;"><span>${movie.name}</span></div>`
-    ).join("") : "<p>Tidak ada rekomendasi.</p>";
-}
+            if (!recommendations[mbti] || !recommendations[mbti][mood]) {
+                return "<p>Maaf, tidak ada rekomendasi yang tersedia.</p>";
+            }
+
+            // Filter film berdasarkan usia
+            let movieList = recommendations[mbti][mood].filter(movie => {
+                if (age < 13) return movie.age === "anak-anak";
+                if (age >= 13 && age < 18) return movie.age === "remaja" || movie.age === "anak-anak";
+                return true; // Semua umur bisa nonton film "dewasa"
+            });
+
+            if (movieList.length === 0) return "<p>Maaf, tidak ada rekomendasi yang cocok untuk umur kamu.</p>";
+
+            // Menampilkan film dalam bentuk gambar dan nama
+            return movieList.map(movie => `
+                <div>
+                    <img src="${movie.image}" alt="${movie.name}" style="width:150px;">
+                    <p>${movie.name}</p>
+                </div>
+            `).join("");
+        }
+    </script>
+
+</body>
+</html>
